@@ -73,3 +73,26 @@
 .market-board tbody tr:hover {
   background: rgba(255, 173, 51, 0.08);
 }
+
+
+.range-selector {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+
+  button {
+    background: #050c17;
+    color: #87a3cb;
+    border: 1px solid #2a3e57;
+    padding: 0.4rem 0.75rem;
+    font: inherit;
+    cursor: pointer;
+  }
+
+  button.active {
+    color: #03060d;
+    background: #ffad33;
+    border-color: #ffad33;
+    font-weight: 700;
+  }
+}

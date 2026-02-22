@@ -8,7 +8,7 @@ Primera versión de una interfaz inspirada en Bloomberg Terminal para monitorear
 - Buscador por ticker en la parte superior.
 - Servicio Angular que consume un mock local en vez de backend real.
 - Estructuras de datos alineadas con el payload de precios e información proporcionado.
-- Gráfico temporal reutilizable de 7 días por ticker, alimentado con histórico mock.
+- Gráfico temporal reutilizable por ticker con rangos intradía, 7 días, 1 mes y 1 año, alimentado con históricos mock.
 
 ## Arranque
 

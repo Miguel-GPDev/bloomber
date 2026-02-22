@@ -39,9 +39,21 @@
     </table>
   </section>
 
+  <section class="range-selector" *ngIf="selectedRange$ | async as selectedRange">
+    <button
+      type="button"
+      *ngFor="let range of historyRanges"
+      [ngClass]="{ active: range === selectedRange }"
+      (click)="setRange(range)"
+    >
+      {{ range | uppercase }}
+    </button>
+  </section>
+
   <app-price-chart
     *ngIf="(selectedTicker$ | async) as selectedTicker"
     [symbol]="selectedTicker"
+    [range]="(selectedRange$ | async) ?? '7d'"
     [points]="(history$ | async) ?? []"
   ></app-price-chart>
 </div>

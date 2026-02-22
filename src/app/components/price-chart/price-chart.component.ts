@@ -1,16 +1,17 @@
-import { DatePipe, DecimalPipe, NgFor, NgIf } from '@angular/common';
+import { DatePipe, DecimalPipe, NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { Component, Input, OnChanges } from '@angular/core';
-import { StockHistoryPoint } from '../../models/stock-history.model';
+import { HistoryRange, StockHistoryPoint } from '../../models/stock-history.model';
 
 @Component({
   selector: 'app-price-chart',
   standalone: true,
-  imports: [DatePipe, DecimalPipe, NgFor, NgIf],
+  imports: [DatePipe, DecimalPipe, NgFor, NgIf, UpperCasePipe],
   templateUrl: './price-chart.component.html',
   styleUrl: './price-chart.component.scss'
 })
 export class PriceChartComponent implements OnChanges {
   @Input() symbol = '';
+  @Input() range: HistoryRange = '7d';
   @Input() points: StockHistoryPoint[] = [];
 
   readonly width = 760;
@@ -21,6 +22,18 @@ export class PriceChartComponent implements OnChanges {
 
   ngOnChanges(): void {
     this.polylinePoints = this.buildPolyline(this.points);
+  }
+
+  formatDate(pointDate: string): string {
+    if (this.range === 'intraday') {
+      return pointDate;
+    }
+
+    if (this.range === '1y') {
+      return pointDate.slice(0, 7);
+    }
+
+    return pointDate.slice(5);
   }
 
   private buildPolyline(points: StockHistoryPoint[]): string {

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { combineLatest, map, Observable, startWith, Subject, switchMap } from 'rxjs';
 import { PriceChartComponent } from './components/price-chart/price-chart.component';
-import { StockHistoryPoint } from './models/stock-history.model';
+import { HistoryRange, StockHistoryPoint } from './models/stock-history.model';
 import { Sp500Row } from './models/stock-price.model';
 import { Sp500Service } from './services/sp500.service';
 
@@ -16,14 +16,19 @@ import { Sp500Service } from './services/sp500.service';
 })
 export class AppComponent {
   tickerQuery = '';
+  readonly historyRanges: HistoryRange[] = ['intraday', '7d', '1m', '1y'];
+
   private readonly tickerSelection$ = new Subject<string>();
+  private readonly rangeSelection$ = new Subject<HistoryRange>();
 
   readonly marketRows$: Observable<Sp500Row[]>;
   readonly selectedTicker$: Observable<string>;
+  readonly selectedRange$: Observable<HistoryRange>;
   readonly history$: Observable<StockHistoryPoint[]>;
 
   constructor(private readonly sp500Service: Sp500Service) {
     this.marketRows$ = this.sp500Service.getMarketSnapshot();
+    this.selectedRange$ = this.rangeSelection$.pipe(startWith('7d' as HistoryRange));
 
     this.selectedTicker$ = combineLatest([
       this.marketRows$,
@@ -39,8 +44,8 @@ export class AppComponent {
       })
     );
 
-    this.history$ = this.selectedTicker$.pipe(
-      switchMap((symbol) => this.sp500Service.get7DayHistory(symbol))
+    this.history$ = combineLatest([this.selectedTicker$, this.selectedRange$]).pipe(
+      switchMap(([symbol, range]) => this.sp500Service.getHistory(symbol, range))
     );
   }
 
@@ -61,6 +66,10 @@ export class AppComponent {
   setSelectedTicker(symbol: string): void {
     this.tickerQuery = symbol;
     this.tickerSelection$.next(symbol);
+  }
+
+  setRange(range: HistoryRange): void {
+    this.rangeSelection$.next(range);
   }
 
   priceChangePercent(row: Sp500Row): number {
