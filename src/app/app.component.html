@@ -1,0 +1,40 @@
+<div class="terminal-shell">
+  <header class="terminal-header">
+    <h1>SP500 MARKET MONITOR</h1>
+    <input
+      type="text"
+      [(ngModel)]="tickerQuery"
+      placeholder="Buscar ticker (ej. AAPL)"
+      aria-label="Buscar ticker"
+    />
+  </header>
+
+  <section class="market-board" *ngIf="marketRows$ | async as rows">
+    <table>
+      <thead>
+        <tr>
+          <th>Ticker</th>
+          <th>Company</th>
+          <th>MIC</th>
+          <th>Last</th>
+          <th>Chg %</th>
+          <th>Volume</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of filteredRows(rows)">
+          <td class="ticker">{{ row.symbol }}</td>
+          <td>{{ row.description }}</td>
+          <td>{{ row.market }}</td>
+          <td>{{ row.latestPrice | currency : 'USD' : 'symbol' : '1.2-2' }}</td>
+          <td [ngClass]="priceChangePercent(row) >= 0 ? 'up' : 'down'">
+            {{ priceChangePercent(row) | number : '1.2-2' }}%
+          </td>
+          <td>{{ row.volume }}</td>
+          <td>{{ row.tradeType }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
