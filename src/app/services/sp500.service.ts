@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { delay, Observable, of } from 'rxjs';
-import { SP500_INFO_MOCK, SP500_PRICE_MOCK } from '../mocks/sp500.mock';
+import { SP500_HISTORY_MOCK, SP500_INFO_MOCK, SP500_PRICE_MOCK } from '../mocks/sp500.mock';
+import { StockHistoryPoint } from '../models/stock-history.model';
 import { Sp500Row } from '../models/stock-price.model';
 
 @Injectable({ providedIn: 'root' })
@@ -23,5 +24,10 @@ export class Sp500Service {
     });
 
     return of(rows).pipe(delay(250));
+  }
+
+  get7DayHistory(symbol: string): Observable<StockHistoryPoint[]> {
+    const history = SP500_HISTORY_MOCK.find((entry) => entry.symbol === symbol.toUpperCase());
+    return of(history?.points ?? []).pipe(delay(150));
   }
 }

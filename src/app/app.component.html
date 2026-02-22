@@ -3,7 +3,8 @@
     <h1>SP500 MARKET MONITOR</h1>
     <input
       type="text"
-      [(ngModel)]="tickerQuery"
+      [ngModel]="tickerQuery"
+      (ngModelChange)="onTickerChange($event)"
       placeholder="Buscar ticker (ej. AAPL)"
       aria-label="Buscar ticker"
     />
@@ -23,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of filteredRows(rows)">
+        <tr *ngFor="let row of filteredRows(rows)" (click)="setSelectedTicker(row.symbol)">
           <td class="ticker">{{ row.symbol }}</td>
           <td>{{ row.description }}</td>
           <td>{{ row.market }}</td>
@@ -37,4 +38,10 @@
       </tbody>
     </table>
   </section>
+
+  <app-price-chart
+    *ngIf="(selectedTicker$ | async) as selectedTicker"
+    [symbol]="selectedTicker"
+    [points]="(history$ | async) ?? []"
+  ></app-price-chart>
 </div>

@@ -1,4 +1,5 @@
 import { StockInfo, StockPriceResponse } from '../models/stock-price.model';
+import { StockHistory } from '../models/stock-history.model';
 
 export const SP500_PRICE_MOCK: StockPriceResponse[] = [
   {
@@ -79,5 +80,57 @@ export const SP500_INFO_MOCK: StockInfo[] = [
     mic: 'XNGS',
     symbol: 'NVDA',
     type: 'Common Stock'
+  }
+];
+
+
+export const SP500_HISTORY_MOCK: StockHistory[] = [
+  {
+    symbol: 'AAPL',
+    points: [
+      { date: '2026-02-16', close: 251.4 },
+      { date: '2026-02-17', close: 252.1 },
+      { date: '2026-02-18', close: 253.8 },
+      { date: '2026-02-19', close: 252.9 },
+      { date: '2026-02-20', close: 254.3 },
+      { date: '2026-02-21', close: 255.7 },
+      { date: '2026-02-22', close: 256.4 }
+    ]
+  },
+  {
+    symbol: 'MSFT',
+    points: [
+      { date: '2026-02-16', close: 481.2 },
+      { date: '2026-02-17', close: 482.8 },
+      { date: '2026-02-18', close: 484.5 },
+      { date: '2026-02-19', close: 483.7 },
+      { date: '2026-02-20', close: 485.4 },
+      { date: '2026-02-21', close: 486.1 },
+      { date: '2026-02-22', close: 486.9 }
+    ]
+  },
+  {
+    symbol: 'AMZN',
+    points: [
+      { date: '2026-02-16', close: 169.1 },
+      { date: '2026-02-17', close: 170.5 },
+      { date: '2026-02-18', close: 171.8 },
+      { date: '2026-02-19', close: 172.2 },
+      { date: '2026-02-20', close: 171.6 },
+      { date: '2026-02-21', close: 172.7 },
+      { date: '2026-02-22', close: 173.8 }
+    ]
+  },
+  {
+    symbol: 'NVDA',
+    points: [
+      { date: '2026-02-16', close: 416.2 },
+      { date: '2026-02-17', close: 417.5 },
+      { date: '2026-02-18', close: 419.9 },
+      { date: '2026-02-19', close: 420.7 },
+      { date: '2026-02-20', close: 421.1 },
+      { date: '2026-02-21', close: 420.4 },
+      { date: '2026-02-22', close: 421.5 }
+    ]
   }
 ];

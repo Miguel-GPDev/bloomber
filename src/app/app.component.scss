@@ -65,3 +65,11 @@
     color: #ff6d6d;
   }
 }
+
+.market-board tbody tr {
+  cursor: pointer;
+}
+
+.market-board tbody tr:hover {
+  background: rgba(255, 173, 51, 0.08);
+}
