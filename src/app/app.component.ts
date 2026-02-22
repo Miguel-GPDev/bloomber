@@ -1,4 +1,4 @@
-import { AsyncPipe, CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import { Sp500Service } from './services/sp500.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AsyncPipe, CurrencyPipe, FormsModule, NgClass, NgFor, NgIf],
+  imports: [AsyncPipe, CurrencyPipe, DecimalPipe, FormsModule, NgClass, NgFor, NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
