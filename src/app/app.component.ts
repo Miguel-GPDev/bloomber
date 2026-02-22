@@ -1,4 +1,4 @@
-import { AsyncPipe, CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, DecimalPipe, NgClass, NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { combineLatest, map, Observable, startWith, Subject, switchMap } from 'rxjs';
@@ -10,7 +10,7 @@ import { Sp500Service } from './services/sp500.service';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AsyncPipe, CurrencyPipe, DecimalPipe, FormsModule, NgClass, NgFor, NgIf, PriceChartComponent],
+  imports: [AsyncPipe, CurrencyPipe, DecimalPipe, FormsModule, NgClass, NgFor, NgIf, UpperCasePipe, PriceChartComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
