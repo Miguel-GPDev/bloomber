@@ -1,0 +1,20 @@
+<section class="chart-shell">
+  <div class="chart-title">
+    <h2>{{ symbol }} · Histórico {{ range | uppercase }}</h2>
+    <span *ngIf="points.length">Último cierre: {{ points[points.length - 1].close | number : '1.2-2' }} USD</span>
+  </div>
+
+  <div class="chart-body" *ngIf="points.length; else emptyState">
+    <svg [attr.viewBox]="'0 0 ' + width + ' ' + height" role="img" aria-label="Gráfico de precios histórico">
+      <polyline class="price-line" [attr.points]="polylinePoints"></polyline>
+    </svg>
+
+    <div class="chart-axis" [style.grid-template-columns]="'repeat(' + points.length + ', 1fr)'">
+      <span *ngFor="let point of points">{{ formatDate(point.date) }}</span>
+    </div>
+  </div>
+
+  <ng-template #emptyState>
+    <p class="empty">No hay histórico para el ticker seleccionado.</p>
+  </ng-template>
+</section>
